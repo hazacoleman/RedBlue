@@ -1,0 +1,228 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    Images:
+    RedPill:
+    BluePill:
+    
+<MainWindow>:
+    
+    name: "main"
+    
+    GridLayout:
+        cols:1
+        
+        Label:
+            text:"Login Please"
+            
+        GridLayout:
+            cols:2
+        
+     
+            Label:
+                text:"Username: "
+                
+               
+            TextInput:
+                id: Username
+                
+                multiline: False
+                
+                
+            Label:
+                text:"Password: "
+                
+               
+            TextInput:
+                id: Password
+               
+                multiline: False
+                
+                    
+        Button:
+            
+            
+            text: "Submit"
+            background_color: [0,1,1,0.5]
+            on_release: 
+                app.attempt_login(Username.text, Password.text)
+                root.manager.transition.direction = "left"
+                
+                    
+<SecondWindow>:
+    name: "second"
+    GridLayout:
+        cols:1
+        
+        Label:
+            text:"Make This Next Choice Wisely!"
+            
+        GridLayout:
+            cols:2
+        
+            Button:
+        
+        
+                text: "Go Back"
+                background_color: [0,1,1,0.5]
+                on_release: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+        
+       
+        
+    
+            Button:
+        
+        
+                text: "Go Further"
+                background_color: [0,1,1,0.5]
+                
+                on_release: 
+                    app.root.current = "Images"
+                    root.manager.transition.direction = "left"
+<Images>:
+    
+    
+            
+    name: "Images"
+   
+    GridLayout:
+        cols:1
+      
+        
+        Image:
+            source: 'bluered.png'
+            size: self.texture_size
+        
+        GridLayout:
+            cols:2
+                
+            Label:
+                text: "Blue: "
+                
+            CheckBox:
+                group: 'check'
+                id:cb1
+                on_active: root.change_bluetext()
+                            
+            Label:
+                text: "Red: "
+                
+            CheckBox:
+                group: 'check'
+                id:cb2
+                on_active: 
+                    root.change_redtext()
+                
+                
+        GridLayout:
+            cols:2
+                
+            Label:
+                text: "Selection: " + root.text_changed
+                background_color: [0,1,1,0.2]
+                
+            Button:
+                text: "Confirm"
+                id: cbutton
+                background_color: [0,1,1,0.5]
+                on_release:
+                    app.root.transition = FadeTransition(duration=1.5)
+                    app.selection(root.text_changed, root)
+                
+<RedPill>:
+    name: "RedPill"
+    
+    GridLayout:
+        cols: 1
+        
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source: 'Red.png'
+                size: self.texture_size
+                
+            Image:
+                source: 'RedRed.png'
+                size: self.texture_size
+        
+        Button:
+            text: "Pull out Plug"
+            background_color: [1,0,0,0.5]
+            on_release:
+                self.root_window.close()
+    
+            
+        
+        
+        
+        
+            
+    
+<BluePill>:
+    name: "BluePill"
+    
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 2
+            
+            Image:
+                source: 'Blue.png'
+                size: self.texture_size
+                
+            Image:
+                source: 'BlueBlue.png'
+                size: self.texture_size
+        
+        Button:
+            text: "Go Back To Sleep"
+            background_color: [0,0,1,0.5]
+            on_release:
+                self.root_window.close()
+    
+    
+    
+                
+                
+
+           
+       
+   
+     
+   
+            
+       
+           
+            
+            
+       
+            
+        
+            
+            
+
+        
+
+
+    
+    
+       
+       
+    
+        
+    
+    
+        
+        
+        
+            
+        
+       
+        
+        
